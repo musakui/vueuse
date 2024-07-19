@@ -1,0 +1,31 @@
+{
+	"name": "@musakui/vueuse",
+	"description": "Vue utilities",
+	"keywords": [
+		"vue"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/musakui/vueuse.git"
+	},
+	"version": "0.0.2",
+	"type": "module",
+	"files": [
+		"types",
+		"lib"
+	],
+	"main": "./lib/index.js",
+	"types": "./types/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./types/index.d.ts",
+			"import": "./lib/index.js"
+		}
+	},
+	"scripts": {
+	},
+	"devDependencies": {
+		"vue": "^3.4.0"
+	}
+}
