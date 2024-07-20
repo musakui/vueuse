@@ -24,8 +24,11 @@
 		}
 	},
 	"scripts": {
+		"dev": "vite"
 	},
 	"devDependencies": {
+		"@vitejs/plugin-vue": "latest",
+		"vite": "latest",
 		"vue": "^3.4.0"
 	}
 }
