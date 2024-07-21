@@ -9,28 +9,35 @@ const items = ref(
 	}))
 )
 
-const { selected, isAll, isSome, ...selection } = useSelection(items, 'id')
-const { curPage, numPages, pageItems, isFirstPage, isLastPage, ...pagination } = usePagination(items, { defaultPerPage: 10 })
+const { pageSize, pageIndex, pageCount, pageItems, isLastPage, ...pgn } = usePagination(items, { initialPageSize: 7 })
+const { selection, globalSelection, isAll, isSome, ...sel } = useSelection(pageItems, { id: '' })
 </script>
 
 <template>
-	<pre>selected: [{{ selected.join(', ') }}]</pre>
-	<pre>page: {{ curPage }} of {{ numPages }}</pre>
+	<pre>selected: [{{ globalSelection.join(', ') }}]</pre>
+	<pre>page {{ pageIndex + 1 }} / {{ pageCount }}</pre>
 	<div class="pagination">
-		<button :disabled="isFirstPage" @click="pagination.goto(0)">⏮</button>
-		<button :disabled="isFirstPage" @click="pagination.prev">◀</button>
-		<button :disabled="isLastPage" @click="pagination.next">▶</button>
-		<button :disabled="isLastPage" @click="pagination.goto(-1)">⏭</button>
+		<label>
+			per page
+			<select v-model="pageSize">
+				<option v-for="v in [7, 10, 20]" :value="v">{{ v }}</option>
+			</select>
+		</label>
+		<div></div>
+		<button :disabled="!pageIndex" @click="pgn.goto(0)">⏮</button>
+		<button :disabled="!pageIndex" @click="pgn.prev">◀</button>
+		<button :disabled="isLastPage" @click="pgn.next">▶</button>
+		<button :disabled="isLastPage" @click="pgn.goto(-1)">⏭</button>
 	</div>
 	<div class="items">
 		<label>
-			<input type="checkbox" :checked="isAll" :indeterminate="isSome" @click="selection.toggleAll" />
+			<input type="checkbox" :checked="isAll" :indeterminate="isSome" @click="sel.toggleAll" />
 			items
 		</label>
 
 		<div v-for="item of pageItems" :key="item.id">
-			<label @click.shift="selection.shiftSelect(item.id)">
-				<input type="checkbox" v-model="selected" :value="item.id" />
+			<label @click.shift="sel.selectUntil(item.id)">
+				<input type="checkbox" v-model="selection" :value="item.id" />
 				{{ item.name }}
 			</label>
 		</div>
@@ -78,7 +85,7 @@ body {
 .pagination button {
 	cursor: pointer;
 	text-align: center;
-	padding: 5px 10px;
+	padding: 3px 7px;
 	border: none;
 	border-radius: 3px;
 }
