@@ -9,7 +9,7 @@
 		"type": "git",
 		"url": "git+https://github.com/musakui/vueuse.git"
 	},
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"files": [
 		"types",
@@ -24,11 +24,17 @@
 		}
 	},
 	"scripts": {
+		"gentypes": "dts-buddy -m @musakui/vueuse:lib/public.d.ts",
 		"dev": "vite"
+	},
+	"peerDependencies": {
+		"vue": "^3.4.0"
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "latest",
+		"dts-buddy": "latest",
+		"typescript": "latest",
 		"vite": "latest",
-		"vue": "^3.4.0"
+		"vue": "^3.5.0"
 	}
 }
