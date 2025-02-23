@@ -9,7 +9,7 @@
 		"type": "git",
 		"url": "git+https://github.com/musakui/vueuse.git"
 	},
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"type": "module",
 	"files": [
 		"types",
